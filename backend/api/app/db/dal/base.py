@@ -46,4 +46,4 @@ class BaseDAL(Generic[InSchema, Schema, Table], metaclass=abc.ABCMeta):
     async def get_all(self) -> list[Schema]:
         """Fetch all entries from ORM"""
         results = await self._session.execute(select(self._table))
-        return [result for result in results.scalars()]
+        return list(results.scalars())

@@ -40,8 +40,9 @@ def get_source_id() -> int:
         raise ConnectionError(f"Unable to retrieve {url!r}")
 
     if resp.ok:
-        full_helping = [s for s in resp.json() if "thefullhelping" in s["url"]]
-        if full_helping:
+        if full_helping := [
+            s for s in resp.json() if "thefullhelping" in s["url"]
+        ]:
             return full_helping[0]["id"]
 
     raise ValueError("Source id for full helping could not be found")

@@ -55,7 +55,7 @@ class FullHelpingSpider(scrapy.Spider):
         """Extract image url from html response"""
         image_p = response.css("p > img")
         image_figure = response.css("figure > img")
-        image_selectors = image_p if image_p else image_figure
+        image_selectors = image_p or image_figure
         images_re = image_selectors.re(r'src="(http.*?)\"')
         images = [img for img in images_re if img.split(".")[-1] != "svg"]
         sorted_by_length = sorted(images, key=len, reverse=True)
